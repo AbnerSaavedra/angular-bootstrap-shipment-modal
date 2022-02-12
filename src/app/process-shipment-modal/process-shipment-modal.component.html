@@ -1,0 +1,89 @@
+<div class="modal-header">
+    <h4 class="modal-title text-center">{{my_modal_title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+
+    <div class="row mb-5">
+        <div class="col">
+            <p>
+                Total value (USD):
+            </p>
+            <h4>
+                {{ total_value }}
+            </h4>
+            
+            <p>
+                Pending value (USD):
+            </p>
+            <h4>
+                {{ pending_value }}
+            </h4>
+        </div>
+
+        <div class="col">
+            <form [formGroup]="formData" (ngSubmit)="onClickSubmit(formData.value)">
+
+                <div class="mb-3">
+                    <label for="paymentType" class="form-label">Payment type</label><br>
+                    <select id="paymentType" class="form-control" formControlName="paymentType" class="form-select">
+                        <option value="0">Select a payment type</option>
+                        <option value="Credit card">Credit card</option>
+                        <option value="Cash">Cash</option>
+                    </select>
+                </div>
+        
+                <div class="mb-3">
+                  <label for="value" class="form-label">Value</label>
+                  <input type="number" class="form-control" id="value" formControlName="value">
+                </div>
+
+                <input type="hidden" class="form-control" id="id" formControlName="id">
+
+                <button type="submit" class="btn btn-sm btn-info">{{ button_text }}</button>
+            </form>
+
+            <p>
+                Payment type: {{ paymentType }}
+            </p>
+
+            <p>
+                Value: {{ value }}
+            </p>
+        </div>
+    </div>
+
+    <div class="detail-table">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Type</th>
+                <th scope="col">Transaction</th>
+                <th scope="col">Description</th>
+                <th scope="col">Client Bank</th>
+                <th scope="col">Value (USD)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pago of pagos">
+                <th scope="row">{{ pago.id }}</th>
+                <td>{{ pago.paymentType }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ pago.value }}</td>
+                <td>
+                    <button class="btn btn-sm btn-info" (click)="editRow(pago)">Edit</button>
+                    <button  class="btn btn-sm btn-danger" (click)="deleteRow(pago)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+  <button class="btn btn-sm btn-info" (click)="saveAllData()" [disabled]="pending_value != 0">Continue</button>
+
+</div>

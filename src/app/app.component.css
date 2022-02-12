@@ -1,0 +1,10 @@
+.openModal{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content{
+    width: 90vw;
+}
